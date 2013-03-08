@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <object id="SampleService" type="BasicProject.ThinService.Implementation.SampleService, BasicProject.ThinService.Implementation" autowire="constructor" />
+  <object id="SampleService2" type="BasicProject.ThinService.Implementation.SampleService2, BasicProject.ThinService.Implementation"  autowire="constructor" />
+  
+</objects>

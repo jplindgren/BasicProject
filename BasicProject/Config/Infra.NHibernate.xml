@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:db="http://www.springframework.net/database">
+
+  <!-- Referenced by main application context configuration file -->
+  <description>
+    
+  </description>
+
+  <!-- Database Configuration -->
+  <db:provider id="DbProvider" provider="MySql" connectionString="Server=localhost;Database=DenioBlog;User ID=root;Password=kmn23po"/>
+
+  <!-- NHibernate SessionFactory configuration -->
+  <object id="SessionFactory" type="Spring.Data.NHibernate.LocalSessionFactoryObject, Spring.Data.NHibernate32">
+    <property name="DbProvider" ref="DbProvider"/>
+    <property name="MappingAssemblies">
+      <list>
+        <value>Infrastructure.Nhibernate</value>
+      </list>
+    </property>
+    <property name="HibernateProperties">
+      <dictionary>
+        <entry key="hibernate.connection.provider" value="NHibernate.Connection.DriverConnectionProvider"/>
+        <entry key="dialect" value="NHibernate.Dialect.MySQLDialect"/>
+        <entry key="connection.driver_class" value="NHibernate.Driver.MySqlDataDriver"/>
+        <entry key="use_proxy_validator" value="true"/>
+        <entry key="proxyfactory.factory_class" value="NHibernate.Bytecode.DefaultProxyFactoryFactory, NHibernate"/>
+        <entry key="hbm2ddl.auto" value="update"/>
+      </dictionary>
+    </property>
+
+    <!-- provides integation with Spring's declarative transaction management features -->
+    <property name="ExposeTransactionAwareSessionFactory" value="true" />
+
+  </object>
+
+  <!-- Transaction Management Strategy - local database transactions -->
+  <object id="transactionManager"
+        type="Spring.Data.NHibernate.HibernateTransactionManager, Spring.Data.NHibernate32">
+    <property name="DbProvider" ref="DbProvider"/>
+    <property name="SessionFactory" ref="SessionFactory"/>
+  </object>
+
+
+  <!-- Exception translation object post processor -->
+  <object type="Spring.Dao.Attributes.PersistenceExceptionTranslationPostProcessor, Spring.Data"/>
+
+  <!-- Repositorios -->
+  <!--<object id="PostRepository" type="Infrastructure.Nhibernate.Implementation.PostRepository, Infrastructure.Nhibernate" >
+    <property name="SessionFactory" ref="SessionFactory"/>
+  </object>
+
+  <object id="UserExtendedRepository" type="Infrastructure.Nhibernate.Implementation.UserExtendedRepository, Infrastructure.Nhibernate" >
+    <property name="SessionFactory" ref="SessionFactory"/>
+  </object>-->
+
+  <object id="HibernateTemplate" type="Spring.Data.NHibernate.HibernateTemplate, Spring.Data.NHibernate32">
+    <property name="SessionFactory" ref="sessionFactory" />
+    <property name="TemplateFlushMode" value="Auto" />
+    <property name="CacheQueries" value="true" />
+  </object>
+
+</objects>
