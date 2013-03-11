@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BasicProject.ThinService.Interface;
-using BasicProject.ThinService.Implementation;
 using Spring.Context.Support;
 using Spring.Context;
 

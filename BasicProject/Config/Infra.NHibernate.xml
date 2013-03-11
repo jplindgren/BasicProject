@@ -10,8 +10,8 @@
   <!-- Database Configuration -->
   <db:provider id="DbProvider" provider="MySql" connectionString="Server=localhost;Database=DenioBlog;User ID=root;Password=kmn23po"/>
 
-  <!-- NHibernate SessionFactory configuration -->
-  <object id="SessionFactory" type="Spring.Data.NHibernate.LocalSessionFactoryObject, Spring.Data.NHibernate32">
+  <!-- NHibernate SessionFactory configuration --><!--
+  <object id="SessionFactory" type="BasicProject.NHibernateInfra.Implementation.Spring.Data.NHibernate.FluentNhibernateLocalSessionFactoryObject, BasicProject.NHibernateInfra.Implementation">
     <property name="DbProvider" ref="DbProvider"/>
     <property name="MappingAssemblies">
       <list>
@@ -29,10 +29,34 @@
       </dictionary>
     </property>
 
-    <!-- provides integation with Spring's declarative transaction management features -->
+    --><!-- provides integation with Spring's declarative transaction management features --><!--
     <property name="ExposeTransactionAwareSessionFactory" value="true" />
 
-  </object>
+  </object>-->
+
+    <object id="SessionFactory" type="BasicProject.NHibernateInfra.Implementation.FluentNhibernateLocalSessionFactoryObject, BasicProject.NHibernateInfra.Implementation">
+        <property name="DbProvider" ref="DbProvider"/>
+        <property name="ConnectionStringName" value="MysqlConnection"/>
+        <property name="ExposeTransactionAwareSessionFactory" value="true" />
+        <property name="FluentNhibernateMappingAssemblies">
+            <list>
+                <value>BasicProject.NHibernateInfra.Implementation</value>
+            </list>
+        </property>
+        <property name="HibernateProperties">
+            <dictionary>
+                <!--<entry key="connection.provider" value="NHibernate.Connection.DriverConnectionProvider"/>
+                <entry key="dialect" value="NHibernate.Dialect.MsSql2008Dialect"/>
+                <entry key="connection.driver_class" value="NHibernate.Driver.SqlClientDriver"/>
+                <entry key="cache.use_second_level_cache" value="true" />
+                <entry key="cache.provider_class"
+                          value="NHibernate.Cache.HashtableCacheProvider,NHibernate" />
+                <entry key="max_fetch_depth" value="0" />-->
+            </dictionary>
+        </property>
+
+        <property name="ExposeTransactionAwareSessionFactory" value="true" />
+    </object>
 
   <!-- Transaction Management Strategy - local database transactions -->
   <object id="transactionManager"
