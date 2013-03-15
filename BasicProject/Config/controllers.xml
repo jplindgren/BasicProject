@@ -3,6 +3,7 @@
 
   <object type="BasicProject.Controllers.HomeController, BasicProject" singleton="false" >
     <constructor-arg index="0" ref="SampleService2" />
+    <constructor-arg index="1" ref="InfoPagamentoService" />
   </object>
 
   <!--intentionally do NOT register the AccountController with the container; demonstrates that the underlying

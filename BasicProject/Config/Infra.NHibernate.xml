@@ -8,7 +8,7 @@
   </description>
 
   <!-- Database Configuration -->
-  <db:provider id="DbProvider" provider="MySql" connectionString="Server=localhost;Database=DenioBlog;User ID=root;Password=kmn23po"/>
+  <db:provider id="DbProvider" provider="MySql" connectionString="Server=localhost;Database=basicproject;User ID=root;Password=1234"/>
 
   <!-- NHibernate SessionFactory configuration --><!--
   <object id="SessionFactory" type="BasicProject.NHibernateInfra.Implementation.Spring.Data.NHibernate.FluentNhibernateLocalSessionFactoryObject, BasicProject.NHibernateInfra.Implementation">
@@ -35,9 +35,9 @@
   </object>-->
 
     <object id="SessionFactory" type="BasicProject.NHibernateInfra.Implementation.FluentNhibernateLocalSessionFactoryObject, BasicProject.NHibernateInfra.Implementation">
-        <property name="DbProvider" ref="DbProvider"/>
+        <!--<property name="DbProvider" ref="DbProvider"/>-->
         <property name="ConnectionStringName" value="MysqlConnection"/>
-        <property name="ExposeTransactionAwareSessionFactory" value="true" />
+        <!--<property name="ExposeTransactionAwareSessionFactory" value="true" />
         <property name="FluentNhibernateMappingAssemblies">
             <list>
                 <value>BasicProject.NHibernateInfra.Implementation</value>
@@ -45,22 +45,23 @@
         </property>
         <property name="HibernateProperties">
             <dictionary>
-                <!--<entry key="connection.provider" value="NHibernate.Connection.DriverConnectionProvider"/>
+                <entry key="connection.provider" value="NHibernate.Connection.DriverConnectionProvider"/>
                 <entry key="dialect" value="NHibernate.Dialect.MsSql2008Dialect"/>
                 <entry key="connection.driver_class" value="NHibernate.Driver.SqlClientDriver"/>
                 <entry key="cache.use_second_level_cache" value="true" />
                 <entry key="cache.provider_class"
                           value="NHibernate.Cache.HashtableCacheProvider,NHibernate" />
-                <entry key="max_fetch_depth" value="0" />-->
+                <entry key="max_fetch_depth" value="0" />
             </dictionary>
-        </property>
+        </property>-->
 
         <property name="ExposeTransactionAwareSessionFactory" value="true" />
     </object>
 
+  
   <!-- Transaction Management Strategy - local database transactions -->
   <object id="transactionManager"
-        type="Spring.Data.NHibernate.HibernateTransactionManager, Spring.Data.NHibernate32">
+        type="Spring.Data.NHibernate.HibernateTransactionManager, Spring.Data.NHibernate33">
     <property name="DbProvider" ref="DbProvider"/>
     <property name="SessionFactory" ref="SessionFactory"/>
   </object>
@@ -70,18 +71,19 @@
   <object type="Spring.Dao.Attributes.PersistenceExceptionTranslationPostProcessor, Spring.Data"/>
 
   <!-- Repositorios -->
-  <!--<object id="PostRepository" type="Infrastructure.Nhibernate.Implementation.PostRepository, Infrastructure.Nhibernate" >
-    <property name="SessionFactory" ref="SessionFactory"/>
+  <object id="InfoPagamentoRepository" type="BasicProject.NHibernateInfra.Implementation.Repositories.InfoPagamentoRepository, BasicProject.NHibernateInfra.Implementation" autowire="constructor" >
+    <!--<property name="SessionFactory" ref="SessionFactory"/>-->
   </object>
 
-  <object id="UserExtendedRepository" type="Infrastructure.Nhibernate.Implementation.UserExtendedRepository, Infrastructure.Nhibernate" >
+  <!--<object id="UserExtendedRepository" type="Infrastructure.Nhibernate.Implementation.UserExtendedRepository, Infrastructure.Nhibernate" >
     <property name="SessionFactory" ref="SessionFactory"/>
   </object>-->
 
-  <object id="HibernateTemplate" type="Spring.Data.NHibernate.HibernateTemplate, Spring.Data.NHibernate32">
+  <!--<object id="HibernateTemplate" type="Spring.Data.NHibernate.HibernateTemplate, Spring.Data.NHibernate33">
     <property name="SessionFactory" ref="sessionFactory" />
     <property name="TemplateFlushMode" value="Auto" />
     <property name="CacheQueries" value="true" />
-  </object>
+  </object>-->
+  
 
 </objects>

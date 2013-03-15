@@ -40,8 +40,14 @@
     <Reference Include="NHibernate">
       <HintPath>..\lib\FluentNhibernate\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Spring.Data.NHibernate32">
-      <HintPath>..\lib\Spring 2.0.0\Spring.Data.NHibernate32.dll</HintPath>
+    <Reference Include="Spring.Core">
+      <HintPath>..\lib\Spring 2.0.0\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data">
+      <HintPath>..\lib\Spring 2.0.0\Spring.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data.NHibernate33">
+      <HintPath>..\lib\Spring NHibernate33 dlls\Spring.Data.NHibernate33.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -53,14 +59,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FluentNhibernateLocalSessionFactoryObject.cs" />
+    <Compile Include="Maps\InfoPagamentoMap.cs" />
     <Compile Include="NHibernateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\InfoPagamentoRepository.cs" />
     <Compile Include="Repository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BasicProject.Infra.Interface\BasicProject.Infra.Interface.csproj">
       <Project>{768B2804-D1C6-4916-9BBF-D460C906B466}</Project>
       <Name>BasicProject.Infra.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BasicProject.RichModel\BasicProject.RichModel.csproj">
+      <Project>{6E6AD193-8AA9-4DB0-B061-116B3921DE76}</Project>
+      <Name>BasicProject.RichModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

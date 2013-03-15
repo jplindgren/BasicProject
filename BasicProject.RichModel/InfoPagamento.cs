@@ -5,10 +5,10 @@ using System.Text;
 
 namespace BasicProject.RichModel {
     public class InfoPagamento {
-        public long Id { get; set; }
-        public decimal ValorEntrada { get; set; }
-        public int NumeroParcelas { get; set; }
-        public decimal ValorTotalPlano { get; set; }
+        public virtual long? Id { get; set; }
+        public virtual decimal ValorEntrada { get; set; }
+        public virtual int NumeroParcelas { get; set; }
+        public virtual decimal ValorTotalPlano { get; set; }
 
         public InfoPagamento(int numeroParcelas, decimal valorEntrada, decimal valorTotal) {
             this.NumeroParcelas = numeroParcelas;
@@ -16,7 +16,9 @@ namespace BasicProject.RichModel {
             this.ValorTotalPlano = valorTotal;
         }
 
-        public decimal GetValorTotalParcelas() {
+        public InfoPagamento() { }
+
+        public virtual decimal GetValorTotalParcelas() {
             return ValorTotalPlano - ValorEntrada;
         }
     } //class

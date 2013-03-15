@@ -40,9 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IInfoPagamentoService.cs" />
     <Compile Include="ISampleService.cs" />
     <Compile Include="ISampleService2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BasicProject.RichModel\BasicProject.RichModel.csproj">
+      <Project>{6E6AD193-8AA9-4DB0-B061-116B3921DE76}</Project>
+      <Name>BasicProject.RichModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
