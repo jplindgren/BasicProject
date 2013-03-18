@@ -18,6 +18,7 @@ namespace BasicProject.ThinService.Implementation {
         public InfoPagamentoService() {
             
         }
+
         public void SalvarInfoPagamento(RichModel.InfoPagamento infoPagamento) {
             _infoPagamentoRepository.Add(infoPagamento);
         }

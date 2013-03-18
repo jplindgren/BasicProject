@@ -7,19 +7,37 @@ using NHibernate;
 using NHibernate.Linq;
 
 namespace BasicProject.NHibernateInfra.Implementation {
-    public class Repository<T> : ILongKeyedRepository<T> where T : class{
-        private readonly ISession _session;
+    public abstract class Repository<T> : ILongKeyedRepository<T> where T : class{
+        //private readonly ISession _session;
 
-        public Repository(ISession session) {
-            _session = session;
+        //public Repository(ISession session) {
+        //    _session = session;
+        //}
+
+        private ISessionFactory sessionFactory;
+        /// <summary>
+        /// Session factory for sub-classes.
+        /// </summary>
+        public ISessionFactory SessionFactory {
+            protected get { return sessionFactory; }
+            set { sessionFactory = value; }
         }
 
+        /// <summary>
+        /// Get's the current active session. Will retrieve session as managed by the 
+        /// Open Session In View module if enabled.
+        /// </summary>
+        public ISession CurrentSession {
+            get { return SessionFactory.GetCurrentSession(); }
+        }
+
+
         public T FindBy(long id) {
-            return _session.Get<T>(id);
+            return CurrentSession.Get<T>(id);
         }
 
         public IQueryable<T> All() {
-            return _session.Query<T>();
+            return CurrentSession.Query<T>();
         }
 
         public T FindBy(System.Linq.Expressions.Expression<Func<T, bool>> expression) {
@@ -31,26 +49,26 @@ namespace BasicProject.NHibernateInfra.Implementation {
         }
 
         public void Add(T entity) {
-            _session.Save(entity);
+            CurrentSession.Save(entity);
         }
 
         public void Add(IEnumerable<T> entities) {
             foreach (var entity in entities) {
-                _session.Save(entity);    
+                CurrentSession.Save(entity);    
             }
         }
 
         public void Update(T entity) {
-            _session.Update(entity);
+            CurrentSession.Update(entity);
         }
 
         public void Delete(T entity) {
-            _session.Delete(entity);
+            CurrentSession.Delete(entity);
         }
 
         public void Delete(IEnumerable<T> entities) {
             foreach (var entity in entities) {
-                _session.Save(entity);
+                CurrentSession.Save(entity);
             }
         }
     } //end class

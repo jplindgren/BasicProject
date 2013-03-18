@@ -24,76 +24,41 @@ namespace BasicProject.NHibernateInfra.Implementation {
         //    set;
         //}
 
-        //protected override void PostProcessConfiguration(Configuration config) {
-        //    base.PostProcessConfiguration(config);
-
-        //    var autoMappingCfg = new AutoMappingConfiguration();
-
-        //    var autoMap = AutoMap.AssemblyOf(autoMappingCfg)
-        //    .Conventions.Add(DefaultCascade.All(), DefaultLazy.Never())
-        //    .Conventions.Add()
-        //    .Override(map => { map.IgnoreProperty(i => i.Total); });
-
-        //    Fluently.Configure(config)
-        //    .Mappings(m => m.AutoMappings.Add(autoMap))
-        //    .BuildConfiguration();
-        //}
-
         public string[] FluentNhibernateMappingAssemblies { get; set; }
         public string ConnectionStringName { get; set; }
+        static readonly object factorylock = new object();
+        //private static ISessionFactory _sessionFactory;
 
-        protected override ISessionFactory NewSessionFactory(Configuration config) {
-            ConnectionStringName = "Server=localhost;Database=basicproject;User ID=root;Password=1234";
-            return Fluently.Configure()
-               .Database(MySQLConfiguration.Standard.ConnectionString(ConnectionStringName))
-               .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
-               .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
-               .BuildSessionFactory();
+        //protected override ISessionFactory NewSessionFactory(Configuration config) {
+        //    ConnectionStringName = "Server=localhost;Database=basicproject;User ID=root;Password=kmn23po";
 
-            //return Fluently
-            //    .Configure()
-            //    .Database(
-            //        SQLiteConfiguration
-            //            .Standard
-            //            .UsingFile(_dataFile)
-            //            .ProxyFactoryFactory<ProxyFactoryFactory>()
-            //    ).Mappings(
-            //        m => m.FluentMappings.AddFromAssemblyOf<UserMap>()
-            //    ).BuildSessionFactory();
-        }
-
-        //protected override void PostProcessConfiguration(Configuration config) {
-        //    ConnectionStringName = "Server=localhost;Database=basicproject;User ID=root;Password=1234";
-        //    //return Fluently.Configure()
-        //    //   .Database(MySQLConfiguration.Standard.ConnectionString(ConnectionStringName))
-        //    //   .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
-        //    //   .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
-        //    //   .BuildSessionFactory();
-
-        //    base.PostProcessConfiguration(config);
-        //    FluentConfiguration fluentConfig = Fluently.Configure(config)
-        //        .Database(MySQLConfiguration.Standard.ConnectionString(ConnectionStringName))
-        //        .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true));
-
-        //    Array.ForEach(FluentNhibernateMappingAssemblies,
-        //                   assembly => fluentConfig.Mappings(
-        //                                            m => m.FluentMappings.AddFromAssembly(Assembly.Load(assembly))
-        //                                            )
-        //                 );
-        //    fluentConfig.BuildSessionFactory();
-
-
-        //    //IPersistenceConfigurer persistenceConfigurer = MySQLConfiguration.Standard.ConnectionString(c => c.Is("Data Source=.SQL2008;Initial Catalog=NHibernateBlog; Integrated Security=True")).ShowSql(); 
-        //    //// initialize nhibernate with persistance configurer properties
-        //    //Configuration cfg = persistenceConfigurer.ConfigureProperties(new Configuration());
- 
-        //    //// add mappings definition to nhibernate configuration
-        //    //var persistenceModel = new PersistenceModel();
-        //    //persistenceModel.AddMappingsFromAssembly(Assembly.Load("NHConfigMappings"));
-        //    //persistenceModel.Configure(cfg); 
-        //    //// set session factory field which is to be used in tests
-        //    //_sessionFactory = cfg.BuildSessionFactory();
-
+        //    lock (factorylock) {
+        //        if (config.SessionFactory() != null) {
+                    
+        //        }
+        //        return Fluently.Configure()
+        //               .Database(MySQLConfiguration.Standard.ConnectionString(ConnectionStringName))
+        //               .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
+        //               .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
+        //            //.ExposeConfiguration(cfg => cfg.SetProperty(NHibernate.Cfg.Environment.CurrentSessionContextClass,"web"))
+        //               .BuildSessionFactory();
+        //    }
         //}
+
+        protected override void PostProcessConfiguration(Configuration config) {
+            ConnectionStringName = "Server=localhost;Database=basicproject;User ID=root;Password=kmn23po";
+            base.PostProcessConfiguration(config);
+            FluentConfiguration fluentConfig = Fluently.Configure(config)
+                .Database(MySQLConfiguration.Standard.ConnectionString(ConnectionStringName))
+                .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true));
+
+            Array.ForEach(FluentNhibernateMappingAssemblies,
+                           assembly => fluentConfig.Mappings(
+                                                    m => m.FluentMappings.AddFromAssembly(Assembly.Load(assembly))
+                                                    )
+                         );
+            fluentConfig.BuildSessionFactory();
+
+        }
     } //class
 }

@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IInfoPagamentoService.cs" />
+    <Compile Include="IOfertaService.cs" />
     <Compile Include="ISampleService.cs" />
     <Compile Include="ISampleService2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

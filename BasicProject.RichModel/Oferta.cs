@@ -5,9 +5,9 @@ using System.Text;
 
 namespace BasicProject.RichModel {
     public class Oferta {
-        public long Id { get; set; }
-        public InfoPagamento InfoPagamento { get; set; }
-        public DateTime DataInicioOferta { get; set; }
+        public virtual long Id { get; set; }
+        public virtual InfoPagamento InfoPagamento { get; set; }
+        public virtual DateTime DataInicioOferta { get; set; }
 
         //Hibernate?
         protected Oferta() { }
