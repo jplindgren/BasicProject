@@ -8,14 +8,16 @@ using BasicProject.ThinService.Interface;
 
 namespace BasicProject.Controllers{
     public class OfertaController : Controller{
-        public IOfertaService _ofertaService { get; set; }
-        public OfertaController(IOfertaService ofertaService) {
+        private IOfertaService _ofertaService;
+        private ICompraService _compraService;
+
+        public OfertaController(IOfertaService ofertaService, ICompraService compraService) {
             this._ofertaService = ofertaService;
+            this._compraService = compraService;
         }
 
         //
         // GET: /Oferta/
-
         public ActionResult Index(){
             var ofertas = _ofertaService.ListarOfertas();
             return View(ofertas);
@@ -54,45 +56,29 @@ namespace BasicProject.Controllers{
         }
         
         //
-        // GET: /Oferta/Edit/5
+        // GET: /Oferta/Adquirir/5
  
-        public ActionResult Edit(int id){
-            return View();
+        public ActionResult Adquirir(int id){
+            var ofertaASerAdquirida = _ofertaService.BuscarOfertas(id);
+            return View(ofertaASerAdquirida);
         }
 
         //
-        // POST: /Oferta/Edit/5
-
+        // POST: /Oferta/Adquirir/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection){
+        public ActionResult Adquirir(int id, FormCollection collection) {
             try{
-                // TODO: Add update logic here
- 
-                return RedirectToAction("Index");
-            }catch{
+                var ofertaAdquirida = _ofertaService.BuscarOfertas(id);                
+                var cliente = Cliente.CriarNovoCliente(); //aqui buscariamos um cliente já pré-cadastrado, ou exigiriamos o cadastro de um novo.
+                _compraService.AdquirirOferta(cliente, ofertaAdquirida);
+                return RedirectToAction("Agradecimento", new { id = cliente.Id });
+            }catch (Exception ex){
                 return View();
             }
         }
 
-        //
-        // GET: /Oferta/Delete/5
- 
-        public ActionResult Delete(int id){
+        public ActionResult Agradecimento(long id) {
             return View();
-        }
-
-        //
-        // POST: /Oferta/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection){
-            try{
-                // TODO: Add delete logic here
- 
-                return RedirectToAction("Index");
-            }catch{
-                return View();
-            }
         }
     } //end class
 } //end namespace

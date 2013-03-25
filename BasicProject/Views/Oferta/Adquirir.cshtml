@@ -1,0 +1,33 @@
+﻿@model BasicProject.RichModel.Oferta
+
+@{
+    ViewBag.Title = "Adquirir";
+}
+
+<h2>Adquirir</h2>
+
+<fieldset>
+    <legend>Oferta</legend>
+
+    <div class="display-label">DataInicioOferta</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DataInicioOferta)
+    </div>
+    <div class="display-label">NumeroParcelas</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InfoPagamento.NumeroParcelas)
+    </div>
+    <div class="display-label">ValorEntrada</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InfoPagamento.ValorEntrada)
+    </div>
+    <div class="display-label">ValorTotalPlano</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InfoPagamento.ValorTotalPlano)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Save" />
+    </p>
+}

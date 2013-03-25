@@ -5,21 +5,35 @@ using System.Text;
 
 namespace BasicProject.RichModel {
     public class InfoPagamento {
-        public virtual long? Id { get; set; }
-        public virtual decimal ValorEntrada { get; set; }
-        public virtual int NumeroParcelas { get; set; }
-        public virtual decimal ValorTotalPlano { get; set; }
+        private decimal valorTotalPlano;
+        private int numeroParcelas;
+        private decimal valorEntrada;
 
-        public InfoPagamento(int numeroParcelas, decimal valorEntrada, decimal valorTotal) {
-            this.NumeroParcelas = numeroParcelas;
-            this.ValorEntrada = valorEntrada;
-            this.ValorTotalPlano = valorTotal;
+        public virtual long? Id { get; set; }
+
+        public decimal ValorEntrada {
+            get { return valorEntrada; }
+        }       
+
+        public int NumeroParcelas {
+            get { return numeroParcelas; }
         }
 
-        public InfoPagamento() { }
+        public decimal ValorTotalPlano {
+            get { return valorTotalPlano; }
+        }
+
+        public InfoPagamento(int numeroParcelas, decimal valorEntrada, decimal valorTotal) {
+            this.numeroParcelas = numeroParcelas;
+            this.valorEntrada = valorEntrada;
+            this.valorTotalPlano = valorTotal;
+        }
 
         public virtual decimal GetValorTotalParcelas() {
             return ValorTotalPlano - ValorEntrada;
         }
+
+        //Hibernate
+        private InfoPagamento() { }
     } //class
 }

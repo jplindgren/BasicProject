@@ -8,5 +8,6 @@ namespace BasicProject.ThinService.Interface {
     public interface IOfertaService {
         Oferta CriarOferta(Oferta oferta);
         IList<Oferta> ListarOfertas();
+        Oferta BuscarOfertas(long id); 
     } //class
 }

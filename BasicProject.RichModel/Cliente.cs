@@ -6,10 +6,10 @@ using BasicProject.RichModel.StatusCliente;
 
 namespace BasicProject.RichModel {
     public class Cliente {
-        public long Id { get; set; }
+        public long? Id { get; set; }
         public IStatusCliente StatusCliente { get; set; }
-        private PlanoPagamento planoPagamentoCliente { get; set; }
-        private Oferta oferta { get; set; }
+        public PlanoPagamento planoPagamentoCliente { get; set; }
+        public Oferta oferta { get; set; }
 
         private Cliente(IStatusCliente statusCliente) {
             StatusCliente = statusCliente;
@@ -24,5 +24,8 @@ namespace BasicProject.RichModel {
             this.planoPagamentoCliente = new PlanoPagamento(oferta.InfoPagamento.NumeroParcelas, oferta.InfoPagamento.ValorEntrada, oferta.InfoPagamento.ValorTotalPlano);
             StatusCliente.ProximoStatus(this);
         }
+
+         //Hibernate
+        private Cliente() { }
     } //class
 }

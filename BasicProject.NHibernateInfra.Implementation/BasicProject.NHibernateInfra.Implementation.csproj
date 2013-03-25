@@ -59,10 +59,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FluentNhibernateLocalSessionFactoryObject.cs" />
+    <Compile Include="Maps\ClienteMap.cs" />
     <Compile Include="Maps\InfoPagamentoMap.cs" />
+    <Compile Include="Maps\ItemPlanoPagamentoMap.cs" />
     <Compile Include="Maps\OfertaMap.cs" />
+    <Compile Include="Maps\PlanoPagamentoMap.cs" />
     <Compile Include="NHibernateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ClienteRepository.cs" />
     <Compile Include="Repositories\InfoPagamentoRepository.cs" />
     <Compile Include="Repositories\OfertaRepository.cs" />
     <Compile Include="Repository.cs" />

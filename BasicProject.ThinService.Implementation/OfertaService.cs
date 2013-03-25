@@ -8,8 +8,8 @@ using BasicProject.RichModel;
 
 namespace BasicProject.ThinService.Implementation {
     public class OfertaService : IOfertaService {
-        private readonly IRepository<Oferta> _ofertaRepository;
-        public OfertaService(IRepository<Oferta> ofertaRepository) {
+        private readonly ILongKeyedRepository<Oferta> _ofertaRepository;
+        public OfertaService(ILongKeyedRepository<Oferta> ofertaRepository) {
             this._ofertaRepository = ofertaRepository;
         }
 
@@ -20,6 +20,10 @@ namespace BasicProject.ThinService.Implementation {
 
         public IList<Oferta> ListarOfertas() {
             return _ofertaRepository.All().ToList();
+        }
+
+        public Oferta BuscarOfertas(long id) {
+            return _ofertaRepository.FindBy(id);
         }
 
     } //class

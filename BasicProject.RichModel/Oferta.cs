@@ -5,12 +5,12 @@ using System.Text;
 
 namespace BasicProject.RichModel {
     public class Oferta {
-        public virtual long Id { get; set; }
-        public virtual InfoPagamento InfoPagamento { get; set; }
-        public virtual DateTime DataInicioOferta { get; set; }
+        public long Id { get; set; }
+        public InfoPagamento InfoPagamento { get; set; }
+        public DateTime DataInicioOferta { get; set; }
 
-        //Hibernate?
-        protected Oferta() { }
+        //Hibernate
+        private Oferta() { }
 
         private Oferta(int numeroParcelas, decimal entrada, decimal valorTotalPlano, DateTime dataInicioOferta) {
             this.DataInicioOferta = dataInicioOferta;

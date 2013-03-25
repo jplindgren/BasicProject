@@ -5,9 +5,17 @@ using System.Text;
 
 namespace BasicProject.RichModel {
     public class PlanoPagamento {
+        private decimal valorEntrada;
+        private IList<ItemPlanoPagamento> itensPlanoPagamento;
+
         public long Id { get; set; }
-        private decimal valorEntrada { get; set; }
-        private IList<ItemPlanoPagamento> itensPlanoPagamento { get; set; }
+        public decimal ValorEntrada {
+            get{return valorEntrada;} 
+        }
+
+        public IList<ItemPlanoPagamento> ItensPlanoPagamento {
+            get { return itensPlanoPagamento.ToList(); }
+        }
 
         public PlanoPagamento(int numeroParcelas, decimal valorEntrada, decimal valorTotalPlano) {
             var valorTotalParcelado = valorTotalPlano - valorEntrada;
@@ -31,5 +39,8 @@ namespace BasicProject.RichModel {
                 itensPlanoPagamento.Add(itemPlanoPagamento);
             }
         }
+
+         //Hibernate
+        private PlanoPagamento() { }
     } //class
 }

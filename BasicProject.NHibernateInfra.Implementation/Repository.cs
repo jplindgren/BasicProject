@@ -8,12 +8,6 @@ using NHibernate.Linq;
 
 namespace BasicProject.NHibernateInfra.Implementation {
     public abstract class Repository<T> : ILongKeyedRepository<T> where T : class{
-        //private readonly ISession _session;
-
-        //public Repository(ISession session) {
-        //    _session = session;
-        //}
-
         private ISessionFactory sessionFactory;
         /// <summary>
         /// Session factory for sub-classes.

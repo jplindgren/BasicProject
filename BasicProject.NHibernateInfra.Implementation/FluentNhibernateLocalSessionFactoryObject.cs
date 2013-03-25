@@ -27,23 +27,6 @@ namespace BasicProject.NHibernateInfra.Implementation {
         public string[] FluentNhibernateMappingAssemblies { get; set; }
         public string ConnectionStringName { get; set; }
         static readonly object factorylock = new object();
-        //private static ISessionFactory _sessionFactory;
-
-        //protected override ISessionFactory NewSessionFactory(Configuration config) {
-        //    ConnectionStringName = "Server=localhost;Database=basicproject;User ID=root;Password=kmn23po";
-
-        //    lock (factorylock) {
-        //        if (config.SessionFactory() != null) {
-                    
-        //        }
-        //        return Fluently.Configure()
-        //               .Database(MySQLConfiguration.Standard.ConnectionString(ConnectionStringName))
-        //               .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
-        //               .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
-        //            //.ExposeConfiguration(cfg => cfg.SetProperty(NHibernate.Cfg.Environment.CurrentSessionContextClass,"web"))
-        //               .BuildSessionFactory();
-        //    }
-        //}
 
         protected override void PostProcessConfiguration(Configuration config) {
             ConnectionStringName = "Server=localhost;Database=basicproject;User ID=root;Password=kmn23po";
@@ -55,10 +38,10 @@ namespace BasicProject.NHibernateInfra.Implementation {
             Array.ForEach(FluentNhibernateMappingAssemblies,
                            assembly => fluentConfig.Mappings(
                                                     m => m.FluentMappings.AddFromAssembly(Assembly.Load(assembly))
+                                                        .Conventions.Add(FluentNHibernate.Conventions.Helpers.DefaultLazy.Never())
                                                     )
                          );
             fluentConfig.BuildSessionFactory();
-
         }
     } //class
 }

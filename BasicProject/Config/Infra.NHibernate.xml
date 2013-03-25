@@ -80,9 +80,9 @@
         <property name="SessionFactory" ref="SessionFactory"/>
     </object>
 
-  <!--<object id="UserExtendedRepository" type="Infrastructure.Nhibernate.Implementation.UserExtendedRepository, Infrastructure.Nhibernate" >
-    <property name="SessionFactory" ref="SessionFactory"/>
-  </object>-->
+    <object id="ClienteRepository" type="BasicProject.NHibernateInfra.Implementation.Repositories.ClienteRepository, BasicProject.NHibernateInfra.Implementation" >
+        <property name="SessionFactory" ref="SessionFactory"/>
+    </object>
 
   <!--<object id="HibernateTemplate" type="Spring.Data.NHibernate.HibernateTemplate, Spring.Data.NHibernate33">
     <property name="SessionFactory" ref="sessionFactory" />

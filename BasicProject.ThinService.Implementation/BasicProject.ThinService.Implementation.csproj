@@ -40,11 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompraService.cs" />
     <Compile Include="InfoPagamentoService.cs" />
     <Compile Include="OfertaService.cs" />
-    <Compile Include="SampleService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SampleService2.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BasicProject.Infra.Interface\BasicProject.Infra.Interface.csproj">

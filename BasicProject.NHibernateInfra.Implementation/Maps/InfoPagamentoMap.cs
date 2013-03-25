@@ -10,9 +10,9 @@ namespace BasicProject.NHibernateInfra.Implementation.Maps {
         public InfoPagamentoMap(){
             Table("InfoPagamento");
             Id(x => x.Id).GeneratedBy.Identity().Column("IdInfoPagamento");
-            Map(x => x.NumeroParcelas);
-            Map(x => x.ValorEntrada);
-            Map(x => x.ValorTotalPlano);
+            Map(x => x.NumeroParcelas).Access.CamelCaseField();
+            Map(x => x.ValorEntrada).Access.CamelCaseField();
+            Map(x => x.ValorTotalPlano).Access.CamelCaseField();
         }
     } //class
 }
