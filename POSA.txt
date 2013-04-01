@@ -1,0 +1,173 @@
+Concurrent & Network software
+
+Layers
+Applications
+Domain-specific middleware services
+commum middleware services
+distribution middleware
+host infrastructure miidleware -->JVM, CLR (Microsoft), ACE
+operating system & protocols
+hardware
+
+1)Operating Systems & protocols --> provide infrastructure mechanisms to manage end system resources
+  its an abstraction of the hardware
+  - cpf schedulling & process/thread dispatching
+  - virtual memory management
+  - secondary storage, persistence & file system
+  - local and remote inter process comunication (IPC)
+
+
+2)Host infrastructure miidleware --> encapsulates/enhances native OS mechanisms to create reusable OO components
+  its an abstraction of the abstraction
+creates an layer that abstracts the accidental complexities of the OS (error-prone and tedius) in an object oriented components
+
+3)Distribution middleware --> simplifies nerworked component programming & extends OS mechanisms end-to-end
+  Avoid hard-coding client&server app dependencies on object location, language, OS, protocols and hardware
+    examples
+        .Corba
+        .Soap & WebServices
+	.DCOM
+	.Sun RMI
+
+4)Commum middleware services -- > define higher-level domain-indepedent services
+   They support many computing capabilities as such transactional behavior, Authentication&Authorization,database connection pooling & concurrency control,etc
+   examples
+	.J2EE
+	.Microsoft .NET
+	.Web Services
+
+5)Domain-specific middleware services --> you can´t get then on the shelf, they are developed to and specific domain and usually contains secrets.
+   They are different in every domain like avionics, ecommerce, medical system, etc.
+
+Layer Patterns
+Pros
+ -Reusable
+ -support for standadization
+ -dependencies are localized
+ -exchangeability
+
+Cons
+ -Cascades of changing behavior
+ -Higher overhead
+ -Unecessary work
+ -difficulty of establishing the correct granularity of layers
+
+             ------------Dimensions----------------
+Conection oriented vs connectionless protocols
+   a Comunication protocol is a set of rules that specify how control and data information is exchanged between computing systems
+
+1)connection oriented  (ex. TCP)
+  .TCP 3-way handshake
+      .provideos a reliable, sequenced, non duplicated delivery service
+      +supports applications that can´t tolerate data loss
+      -connect set up incurs some delay & requires state on each end point
+
+
+2)Connectionless protocol (ex. UDP)
+   .Provides an unreliable service in which each datagram can be routed & delivered independently
+   +requeres less state to implement & lower delay to initate
+   -datagrams can be lost or reordered
+
+
+Another dimension is --- Data Encoding estrategies----
+  1) Text Based
+     are oriented around strings, rather, than binary data structures.
+     +much easier for humans to read
+     -more verbose in terms of time & space usage
+
+  2)Binary based
+     are oriented around binary data structures rathe than text strings
+     +faster & smaller since they intend for machines rather than people
+     -hard for humans to read
+
+Another dimension is has to do with connection multiplexing strategies
+  1) Multiplexed Connection
+     All client requests from threads in a processo pas through one TCP connection to a server process
+     + conserve OS communication resource, such as socket handls & connection control blocks
+     - Harder to program, less efficient & less deterministic
+  
+  2)NonMultiplexed COnnection
+    Each client uses a diffent connection to communicate with a peer service
+    + Fine control of end-to-end priorities & lower synchronization overhead at miidleware & app layers
+    - Uses more OS resource  & thus may not scale weel in certain contexts
+
+SYNC vs ASYNC Message Exchange
+
+Message Passing vs Shared Memory
+  1) Message Passing --> IPC Channel
+    Message passing exchanges data via inter-process communication (IPC) mechanisms
+    + Generalizes to both local & remote communication
+    - May incur excess overhead for large messages in a "loop-back" configuration
+
+  2) Shared Memory
+    Alows apps to acess & exchanges data as though they were local to address space of each process
+    + Can be more efficient for large messages in loop-back configurations
+    - Doesn´t organize efficiently to remote systems & can be more error-prone & non-poratble for OO apps
+
+Iterative Server vs Concurrent Server
+
+  Iterative Server
+    .Handle each client request before servicing subsequent requests
+    + simplicity
+    - non-scalable
+
+  Concurrent Server
+   .Handle multiple client request simultanously
+   + scalable
+   - complexity
+
+Multiprocessing vs Multithreading
+   Multiprocessing
+    .A process is the unit of resource allocation & protection
+    .A process manages certain resources
+     +Process is protected from other process via an MMU
+     -IPC between process can be complicated & inefficient  
+
+   Multithreading
+    .A thread is a unit of computation that runs in the context of a process
+    .A thread manages certain resources (e.g. stack, registers, signal masks, etc)
+    +IPC between threads is more efficient than IPC between processes.
+    -Threads can interfere with each other 
+
+------ Thread Pool eager Spawning Strategies
+   - Prespawn OS processes/threads to amortize creation costs via eager spawning strategies
+           Estrategies:
+               1) Half-SYNC/HALF-ASYNC Strategy
+                      One thread receive the request and write the task in a Message Queue thread safe wich are consumed by many threads.
+                      + Scalability
+                      - Synchronozation, context switching & data movement overhead
+          
+               2) Leader/Followers Strategy
+                    In this strategy, you have a pool of threads, where on thread at a time is the leader and the leader waits for work on the sources of work (sockets, follow scripts, temrinals, etc)
+                        When the works come, the leader thread read the work from the source and process that work, but first it make the first follower in the line the new leader
+                    + Less overhead & greater predictability
+                    - less scalable
+
+------- On-Demand thread spawning strategy
+   Creates a new process or thread in response to the arrival of client connection and/or data requests
+    .Used to implement thread-per-request & thread-per-connection models
+    +Reduced wasted resource consumption of unesed prespawned threads
+    -Can degrade performance in heavily loaded servers & determinism due to overhead of spawning process/threads & starting services
+
+
+---------Kernel & User-level threading Models
+ Moderns OS platforms provide varios models for schedulling threads
+  .A key difference between the models is the contention scope in which threads compete for sustem resources, such as CPU time
+  .TWO diffenrent scope include:
+     . ---System contention scope (aka "Kernel threading") 1:1 --> where threads compete directly with other system scope threads, regardless of what process they´re in
+     + Can leverage hardware parallelism effectively
+     - Higher thread creating & context switching overhead
+
+     . ---Process contention scope (aka "user threading") 1:n --> where threads in the same processo compete with each other ( but not directly with threads in other processes)
+     +Lower thread creation & context switching overhead
+     -Cant leverage hardware parallelism effectively & has odd blocking semantics
+    
+
+--------Tasks vs Message-based architectures
+1)Task-based architectures structure multiple CPU/Cores according to units of service functionality in an app
++ Straightfoward to program
+- High synchronization, context switching & data movement overhead
+
+2)Message-based architectures structure the CPU/cores according to messages received from apps & network devices
++lower overhead
+-less intuitive design structure
