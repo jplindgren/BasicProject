@@ -171,3 +171,35 @@ Multiprocessing vs Multithreading
 2)Message-based architectures structure the CPU/cores according to messages received from apps & network devices
 +lower overhead
 -less intuitive design structure
+
+
+
+-------------------------------------OS Synchronization Mechanisms------------------
+1) Mutexes --> serialize execution of multiple theads by defining a "critical section" that can be executed by one thread at a time
+
+    - NonRecursive Mutex -> will deadlock or fail if thread owning mutex tries to reacquire it whitout reasling it
+         Thread owning mutex must release it
+    - Recursive Mutex -> will alow thread owning mutex to reacquire it without deadlocking.
+         Owner thread must realeas it same # if times it acquire it.
+
+2) Readers/Writers locks --> allows acess to a shared resource by either multiple threads simultaneosuly having read-only acess or only one thread at a time having write acess
+     . they hlp improve app performance where resources are read much more often than written.
+
+3) Semaphores -->is a non-negative integer that can be inscrmented & decremented atomically
+   . a thread/process blocks when it tries to decrement a semaphore whose value is 0
+   . a blocked thread/process makes progress when another thread/process increments the semaphore
+   . semaphores are often implemented via sleep locks, wich trigger a context switch
+
+4)Condition variables --> allows a thread to schedule and coordinates its own processing
+    . A Thread can wait on complex expressions to attain a desired state
+   . Often used as building blocks for patterns, such as Active Object & Monitor Object
+
+Some Issues to keep in mind
+ . Conditions variables & semaphores generally have higher overhead than mutexes & read/writer lock.
+    Because mutexes use low cost spin-cost and semaphores conditions variables usually uses sleep lock.
+
+ . Mutexts vs Readers/ Writers Locks - Mutexes generally have lower overhead than readers/writer locks.
+
+ . Non Recursive mutexes are more efficient than recursive mutexes.
+
+ . Not all OS support all these synchronization mechanisms, so it may be necessary to emulate some mechanisms in termos of others to ensure portability.
