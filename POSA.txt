@@ -203,3 +203,15 @@ Some Issues to keep in mind
  . Non Recursive mutexes are more efficient than recursive mutexes.
 
  . Not all OS support all these synchronization mechanisms, so it may be necessary to emulate some mechanisms in termos of others to ensure portability.
+
+
+Patterns & frameworks
+
+Well designed software exhibits recurring structures & behaviorn that promotes:
+Abstraction
+Flexibility
+Reuse
+Quality
+Modularity
+
+Patterns describes a solution to a commom problem arising within a context
