@@ -8,7 +8,7 @@
   </description>
 
   <!-- Database Configuration -->
-  <db:provider id="DbProvider" provider="MySql" connectionString="Server=localhost;Database=basicproject;User ID=root;Password=xxxx"/>
+  <db:provider id="DbProvider" provider="MySql" connectionString="Server=localhost;Database=basicproject;User ID=xxxx;Password=xxxx"/>
 
   <!-- NHibernate SessionFactory configuration --><!--
   <object id="SessionFactory" type="BasicProject.NHibernateInfra.Implementation.Spring.Data.NHibernate.FluentNhibernateLocalSessionFactoryObject, BasicProject.NHibernateInfra.Implementation">
